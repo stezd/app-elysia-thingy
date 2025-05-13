@@ -1,27 +1,9 @@
-import { Elysia, t } from 'elysia'
-import { swagger } from '@elysiajs/swagger'
+import { Elysia } from "elysia"
+import { swagger } from "@elysiajs/swagger"
+import { note } from "./note"
 
-class Note {
-	constructor(public data: string[] = ['Moonhalo']) {}
-}
-
-const app = new Elysia()
-	.use(swagger())
-	.decorate('note', new Note())
-	.get('/note', ({ note }) => note.data)
-	.get(
-		'note/:index',
-		({ note, params: { index } }) => {
-			return note.data[index]
-		},
-		{
-			params: t.Object({
-				index: t.Number(),
-			}),
-		},
-	)
-	.listen(6969)
+const app = new Elysia().use(swagger()).use(note).listen(6969)
 
 console.log(
-	`🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`,
+	`🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
 )
