@@ -49,7 +49,7 @@ export const note = new Elysia({ prefix: "/note" })
 		},
 		{
 			body: t.Object({
-				data: t.String()
+				data: t.String({ minLength: 1 })
 			})
 		}
 	)
